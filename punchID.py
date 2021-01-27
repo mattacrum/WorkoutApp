@@ -4,11 +4,18 @@ import soundfile as sf
 import numpy as np
 import sys
 from sklearn.preprocessing import normalize
+from pathlib import Path
 np.set_printoptions(threshold=sys.maxsize)
 
-def readPunches(fileName):
+# Path configurations
+data_folder = Path("Sounds/")
+
+def readPunches(file_name):
+    # Configure the sound file path
+    sound_file = data_folder / file_name
+
     # Read audio file using soundfile
-    data, fs = sf.read('output_~101.wav')
+    data, fs = sf.read(sound_file)
 
     # Total minutes - 10s
     minutes_elapsed = len(data)/fs/60 - (1/6)
@@ -45,3 +52,5 @@ def readPunches(fileName):
 
     strike_total = len(temp)
     print('You threw %d punches' % strike_total)
+
+readPunches('output_~101.wav')
